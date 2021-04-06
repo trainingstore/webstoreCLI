@@ -1,0 +1,22 @@
+a {
+    text-decoration: none;
+    color: black;
+  }
+.centered {
+  text-align: center;
+}
+.router-link-exact-active {
+  color: black;
+  background: lightgray;
+  border: 1px solid lightgray;
+}
+h1 .router-link-exact-active {
+  color: darkgray;
+  background: #f8f9fa;
+  border: 1px solid #f8f9fa;
+}
+
+.photo {
+  width: 25px;
+  height: 25px;
+}

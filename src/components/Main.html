@@ -1,0 +1,59 @@
+<div>
+  <my-header :cartItemCount="cartItemCount"></my-header>
+  <main>
+    <div v-for="product in sortedProducts">
+      <div class="row">
+        <div class="col-md-5 col-md-offset-0">
+          <figure>
+            <img :src="product.image" class="product">
+          </figure>
+        </div>
+        <div class="col-md-6 col-md-offset-0 description">
+          <div>
+            <router-link tag="h1" :to="{name: 'Id', params: {id: product.id}}"
+                          class="pointer">
+              {{ product.title }}
+            </router-link>
+            <p v-html="product.description"></p>
+            <p class="price">{{ product.price | formatPrice }}</p>
+            <button class="btn btn-dark btn-lg"
+                    v-on:click="addToCart(product)"
+                    v-if="canAddToCart(product)"
+              >
+              Add to cart
+            </button>
+            <button class="btn btn-dark btn-lg"
+                    v-else
+                    disabled
+              >
+              Add to cart
+            </button>
+            <transition name="bounce" mode="out-in">
+              <span class="inventory-message"
+                    v-if="product.availableInvetory - cartCount(product.id) === 0"
+                    key="0">
+                    All out
+              </span>
+              <span class="inventory-message"
+                    v-else-if="product.availableInvetory - cartCount(product.id) < 5"
+                    key="1">
+                    Only {{ product.availableInvetory -cartCount(product.id) }} left!
+              </span>
+              <span class="inventory-message"
+                    v-else
+                    key="">
+                    Buy now
+              </span>
+            </transition>
+            <div class="rating">
+              <span v-for="n in 5"
+                    :class="{'rating-active': checkRating(product, n)}">&#9734;</span>
+            </div>
+          </div>
+        </div>
+      </div><!-- row -->
+      <hr>
+    </div><!-- v-for -->
+
+  </main>
+</div>
